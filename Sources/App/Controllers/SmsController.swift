@@ -38,16 +38,25 @@ struct SmsController: RouteCollection {
                                 if j == 1 {
                                     currentItem.phoneNumber = phoneNumber
                                 } else {
-                                    currentItem.smsCode = phoneNumber
+                                    currentItem.otpCode = phoneNumber
                                     returnItems.append(currentItem)
                                 }
                             }
                         }
                     }
                 }
-
+                
+                var bodyData: Data
+                if let phoneNumber: String = try req.query.get(String?.self, at: "phoneNumber") {
+                    let sms = returnItems.first { item in
+                        item.phoneNumber == phoneNumber
+                    }
+                    bodyData = try JSONEncoder().encode(sms)
+                } else {
+                    bodyData = try JSONEncoder().encode(returnItems)
+                }
+                
                 let response = Response(status: .ok)
-                let bodyData = try JSONEncoder().encode(returnItems)
                 response.body = Response.Body(data: bodyData)
                 response.headers.add(name: "Content-Type", value: "application/json")
                 let promise = req.eventLoop.makePromise(of: Response.self)

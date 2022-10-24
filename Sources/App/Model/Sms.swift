@@ -10,10 +10,10 @@ import Vapor
 
 struct Sms: Content {
     var phoneNumber: String?
-    var smsCode: String?
+    var otpCode: String?
 
     init() {
         phoneNumber = nil
-        smsCode = nil
+        otpCode = nil
     }
 }
