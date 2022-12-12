@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwifterSwift
 import Vapor
 import Kanna
 
@@ -27,13 +26,13 @@ struct SmsController: RouteCollection {
 
                         for i in 1...10 {
                             var currentItem: Sms = Sms()
-                            let path: String = "/html/body/div/main/table/tbody/tr[\(i.string)]/"
+                            let path: String = "/html/body/div/main/table/tbody/tr[\(i)]/"
                             for j in 1...2 {
-                                let rowItem: String = path + "td[\(j.string)]"
+                                let rowItem: String = path + "td[\(j)]"
                                 var phoneNumber = content?.at_xpath(rowItem)?.text
                                 phoneNumber = phoneNumber?.replacingOccurrences(of: "\n", with: "")
                                 phoneNumber = phoneNumber?.replacingOccurrences(of: "\r", with: "")
-                                phoneNumber?.trim()
+                                phoneNumber = phoneNumber?.trimmingCharacters(in: .whitespaces)
 
                                 if j == 1 {
                                     currentItem.phoneNumber = phoneNumber

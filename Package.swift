@@ -9,15 +9,13 @@ let package = Package(
     dependencies: [
         // 💧 A server-side Swift web framework.
         .package(url: "https://github.com/vapor/vapor.git", from: "4.0.0"),
-        .package(url: "https://github.com/tid-kijyun/Kanna.git", from: "5.2.2"),
-        .package(url: "https://github.com/SwifterSwift/SwifterSwift.git", from: "5.2.0")
+        .package(url: "https://github.com/tid-kijyun/Kanna.git", from: "5.2.2")
     ],
     targets: [
         .target(
             name: "App",
             dependencies: [
                 .product(name: "Vapor", package: "vapor"),
-                .product(name: "SwifterSwift", package: "SwifterSwift"),
                 .product(name: "Kanna", package: "Kanna")
             ],
             swiftSettings: [
